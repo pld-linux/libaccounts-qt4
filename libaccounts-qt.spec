@@ -7,12 +7,13 @@ Summary:	Accounts management library for Qt 4 applications
 Summary(pl.UTF-8):	Biblioteka do zarządzania kontami dla aplikacji opartych na bibliotece Qt 4
 Name:		libaccounts-qt
 Version:	1.11
-Release:	1
+Release:	2
 License:	LGPL v2.1
 Group:		Libraries
 #Source0Download: http://code.google.com/p/accounts-sso/downloads/list
 Source0:	http://accounts-sso.googlecode.com/files/accounts-qt-%{version}.tar.bz2
 # Source0-md5:	a76f26849603f229399dc46eb83ed5a8
+Patch0:		x32.patch
 URL:		http://code.google.com/p/accounts-sso/
 %{?with_qt4:BuildRequires:	QtCore-devel >= 4}
 %{?with_qt4:BuildRequires:	QtTest-devel >= 4}
@@ -97,6 +98,7 @@ Dokumentacja API biblioteki libaccounts-qt.
 %{__rm} Accounts/{libaccounts-qt5.so*,*.cmake}
 
 %build
+%patch0 -p1
 
 %if %{with qt4}
 install -d build-qt4

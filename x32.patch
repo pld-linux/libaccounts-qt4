@@ -1,0 +1,15 @@
+--- accounts-qt-1.11/common-project-config.pri.orig	2015-04-01 18:48:13.000000000 +0000
++++ accounts-qt-1.11/common-project-config.pri	2015-04-01 18:49:24.000000000 +0000
+@@ -43,11 +43,7 @@ isEmpty( PREFIX ) {
+ }
+ 
+ ARCH = $$system(uname -m)
+-contains( ARCH, x86_64 ) {
+-    INSTALL_LIBDIR = $${INSTALL_PREFIX}/lib64
+-} else {
+-    INSTALL_LIBDIR = $${INSTALL_PREFIX}/lib
+-}
++INSTALL_LIBDIR = $$[QT_INSTALL_LIBS]
+ 
+ # default library directory can be overriden by defining LIBDIR when
+ # running qmake
