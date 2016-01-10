@@ -2,12 +2,12 @@
 # Conditional build:
 %bcond_without	qt4	# Qt 4 version
 %bcond_without	qt5	# Qt 5 version
-#
+
 Summary:	Accounts management library for Qt 4 applications
 Summary(pl.UTF-8):	Biblioteka do zarządzania kontami dla aplikacji opartych na bibliotece Qt 4
 Name:		libaccounts-qt
 Version:	1.11
-Release:	2
+Release:	3
 License:	LGPL v2.1
 Group:		Libraries
 #Source0Download: http://code.google.com/p/accounts-sso/downloads/list
@@ -15,12 +15,12 @@ Source0:	http://accounts-sso.googlecode.com/files/accounts-qt-%{version}.tar.bz2
 # Source0-md5:	a76f26849603f229399dc46eb83ed5a8
 Patch0:		x32.patch
 URL:		http://code.google.com/p/accounts-sso/
-%{?with_qt4:BuildRequires:	QtCore-devel >= 4}
-%{?with_qt4:BuildRequires:	QtTest-devel >= 4}
-%{?with_qt4:BuildRequires:	QtXml-devel >= 4}
 %{?with_qt5:BuildRequires:	Qt5Core-devel >= 5}
 %{?with_qt5:BuildRequires:	Qt5Test-devel >= 5}
 %{?with_qt5:BuildRequires:	Qt5Xml-devel >= 5}
+%{?with_qt4:BuildRequires:	QtCore-devel >= 4}
+%{?with_qt4:BuildRequires:	QtTest-devel >= 4}
+%{?with_qt4:BuildRequires:	QtXml-devel >= 4}
 BuildRequires:	doxygen
 BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	libaccounts-glib-devel
@@ -71,8 +71,8 @@ projektu accounts-sso.
 Summary:	Development files for libaccounts-qt5 library
 Summary(pl.UTF-8):	Pliki programistyczne biblioteki libaccounts-qt5
 Group:		Development/Libraries
-Requires:	libaccounts-qt5 = %{version}-%{release}
 Requires:	Qt5Core-devel >= 5
+Requires:	libaccounts-qt5 = %{version}-%{release}
 
 %description -n libaccounts-qt5-devel
 Development files for libaccounts-qt5 library.
@@ -84,6 +84,9 @@ Pliki programistyczne biblioteki libaccounts-qt5.
 Summary:	API documentation for libaccounts-qt library
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libaccounts-qt
 Group:		Documentation
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 API documentation for libaccounts-qt library.
