@@ -6,15 +6,16 @@
 Summary:	Accounts management library for Qt 4 applications
 Summary(pl.UTF-8):	Biblioteka do zarządzania kontami dla aplikacji opartych na bibliotece Qt 4
 Name:		libaccounts-qt
-Version:	1.11
-Release:	3
+Version:	1.14
+Release:	1
 License:	LGPL v2.1
 Group:		Libraries
-#Source0Download: http://code.google.com/p/accounts-sso/downloads/list
-Source0:	http://accounts-sso.googlecode.com/files/accounts-qt-%{version}.tar.bz2
-# Source0-md5:	a76f26849603f229399dc46eb83ed5a8
+#Source0Download: https://gitlab.com/accounts-sso/libaccounts-qt/tags?page=3
+Source0:	https://gitlab.com/accounts-sso/libaccounts-qt/repository/archive.tar.bz2?ref=VERSION_%{version}
+# Source0-md5:	c6c16ea482613c11ab076b84ebae5633
 Patch0:		x32.patch
-URL:		http://code.google.com/p/accounts-sso/
+Patch1:		%{name}-qt4.patch
+URL:		https://gitlab.com/accounts-sso/libaccounts-qt
 %{?with_qt5:BuildRequires:	Qt5Core-devel >= 5}
 %{?with_qt5:BuildRequires:	Qt5Test-devel >= 5}
 %{?with_qt5:BuildRequires:	Qt5Xml-devel >= 5}
@@ -95,13 +96,11 @@ API documentation for libaccounts-qt library.
 Dokumentacja API biblioteki libaccounts-qt.
 
 %prep
-%setup -q -n accounts-qt-%{version}
-
-# clean
-%{__rm} Accounts/{libaccounts-qt5.so*,*.cmake}
+%setup -q -n %{name}-VERSION_%{version}-a34ca4b6d250529c900b0382559553b6e5885918
 
 %build
 %patch0 -p1
+%patch1 -p1
 
 %if %{with qt4}
 install -d build-qt4
@@ -138,11 +137,6 @@ rm -rf $RPM_BUILD_ROOT
 
 # useless symlink
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libaccounts-qt5.so.1.?
-
-# separate from qt4 version
-%{__mv} $RPM_BUILD_ROOT%{_libdir}/cmake/{AccountsQt,AccountsQt5}
-%{__mv} $RPM_BUILD_ROOT%{_libdir}/cmake/AccountsQt5/{AccountsQt,AccountsQt5}Config.cmake
-%{__mv} $RPM_BUILD_ROOT%{_libdir}/cmake/AccountsQt5/{AccountsQt,AccountsQt5}ConfigVersion.cmake
 %endif
 
 %if %{with qt4}
@@ -196,6 +190,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cmake/AccountsQt5
 %endif
 
+%if %{with qt4} || %{with qt5}
 %files apidocs
 %defattr(644,root,root,755)
-%doc doc/html/*
+%doc %{?with_qt4:build-qt4/doc/html/*} %{!?with_qt4:build-qt5/doc/html/*}
+%endif

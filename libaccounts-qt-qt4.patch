@@ -1,0 +1,52 @@
+--- libaccounts-qt-VERSION_1.14-a34ca4b6d250529c900b0382559553b6e5885918/Accounts/account.h.orig	2015-09-30 10:29:42.000000000 +0200
++++ libaccounts-qt-VERSION_1.14-a34ca4b6d250529c900b0382559553b6e5885918/Accounts/account.h	2016-04-21 20:57:24.161483161 +0200
+@@ -33,7 +33,11 @@
+ #include "Accounts/error.h"
+ #include "Accounts/service.h"
+ 
++#if QT_VERSION < QT_VERSION_CHECK(5 ,0 ,0)
++#define ACCOUNTS_KEY_CREDENTIALS_ID QString::fromUtf8("CredentialsId")
++#else
+ #define ACCOUNTS_KEY_CREDENTIALS_ID QStringLiteral("CredentialsId")
++#endif
+ #include <QObject>
+ #include <QStringList>
+ #include <QVariant>
+--- libaccounts-qt-VERSION_1.14-a34ca4b6d250529c900b0382559553b6e5885918/Accounts/provider.cpp.orig	2015-09-30 10:29:42.000000000 +0200
++++ libaccounts-qt-VERSION_1.14-a34ca4b6d250529c900b0382559553b6e5885918/Accounts/provider.cpp	2016-04-21 20:59:50.524810374 +0200
+@@ -27,6 +27,9 @@
+ #undef signals
+ #include <libaccounts-glib/ag-provider.h>
+ 
++#if QT_VERSION < QT_VERSION_CHECK(5 ,0 ,0)
++#define QStringLiteral QString::fromUtf8
++#endif
+ 
+ using namespace Accounts;
+ 
+--- libaccounts-qt-VERSION_1.14-a34ca4b6d250529c900b0382559553b6e5885918/Accounts/service.cpp.orig	2015-09-30 10:29:42.000000000 +0200
++++ libaccounts-qt-VERSION_1.14-a34ca4b6d250529c900b0382559553b6e5885918/Accounts/service.cpp	2016-04-21 21:01:04.404807253 +0200
+@@ -29,6 +29,10 @@
+ #undef signals
+ #include <libaccounts-glib/ag-service.h>
+ 
++#if QT_VERSION < QT_VERSION_CHECK(5 ,0 ,0)
++#define QStringLiteral QString::fromUtf8
++#endif
++
+ using namespace Accounts;
+ 
+ namespace Accounts {
+--- libaccounts-qt-VERSION_1.14-a34ca4b6d250529c900b0382559553b6e5885918/Accounts/service-type.cpp.orig	2015-09-30 10:29:42.000000000 +0200
++++ libaccounts-qt-VERSION_1.14-a34ca4b6d250529c900b0382559553b6e5885918/Accounts/service-type.cpp	2016-04-21 21:06:40.968126464 +0200
+@@ -29,6 +29,10 @@
+ #undef signals
+ #include <libaccounts-glib/ag-service-type.h>
+ 
++#if QT_VERSION < QT_VERSION_CHECK(5 ,0 ,0)
++#define QStringLiteral QString::fromUtf8
++#endif
++
+ using namespace Accounts;
+ 
+ namespace Accounts {
