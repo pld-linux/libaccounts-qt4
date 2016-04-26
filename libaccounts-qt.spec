@@ -11,7 +11,9 @@ Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 #Source0Download: https://gitlab.com/accounts-sso/libaccounts-qt/tags?page=3
-Source0:	https://gitlab.com/accounts-sso/libaccounts-qt/repository/archive.tar.bz2?ref=VERSION_%{version}
+# TODO: in the future use fake GET arg to force sane filename on df
+#Source0:	https://gitlab.com/accounts-sso/libaccounts-qt/repository/archive.tar.bz2?ref=VERSION_%{version}&fake_out=/%{name}-%{version}.tar.bz2
+Source0:	archive.tar.bz2%3Fref=VERSION_%{version}
 # Source0-md5:	c6c16ea482613c11ab076b84ebae5633
 Patch0:		x32.patch
 Patch1:		%{name}-qt4.patch
